@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Customer Panel{% endblock %}
+{% block content %}
+<div class="container mt-5 text-white">
+  <h2>Hello, {{ user.username }} 👋</h2>
+  <div class="card bg-dark p-4 mt-4">
+    <h4>Start Shopping</h4>
+    <a href="#" class="btn btn-outline-light mt-2">Browse Products</a>
+  </div>
+</div>
+{% endblock %}

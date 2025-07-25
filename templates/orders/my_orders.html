@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<h2 class="mb-4">Your Orders</h2>
+{% for order in orders %}
+<div class="card p-3 mb-3">
+    <h5>Order #{{ order.id }} — {{ order.created_at|date:"Y-m-d" }}</h5>
+    <p>Total: Rs {{ order.total_amount }} | Paid: {{ order.is_paid }}</p>
+    <ul>
+        {% for item in order.items.all %}
+        <li>{{ item.product.name }} — Qty: {{ item.quantity }} — Rs {{ item.price }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>No orders found.</p>
+{% endfor %}
+{% endblock %}

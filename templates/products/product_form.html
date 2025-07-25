@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Add/Edit Product{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card bg-dark text-light p-4 rounded shadow-lg">
+    <h3 class="mb-3">{{ form.instance.pk|yesno:"Edit Product,Add New Product" }}</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary mt-3">Save</button>
+      <a href="{% url 'product_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

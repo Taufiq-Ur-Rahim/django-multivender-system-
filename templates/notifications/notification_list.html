@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card p-4 shadow">
+    <h4>Your Notifications</h4>
+    <ul class="list-group">
+      {% for note in notifications %}
+      <li class="list-group-item {% if not note.is_read %}list-group-item-warning{% endif %}">
+        {{ note.message }} <br>
+        <small class="text-muted">{{ note.created_at|date:"M d, Y H:i" }}</small>
+      </li>
+      {% empty %}
+      <li class="list-group-item">No notifications yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="container mt-5 text-white">
+  <h1 class="text-center mb-4">Welcome, Super Admin</h1>
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="card bg-dark p-4">
+        <h4>Vendors</h4>
+        <a href="#" class="btn btn-outline-light mt-2">Manage Vendors</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-dark p-4">
+        <h4>Customers</h4>
+        <a href="#" class="btn btn-outline-light mt-2">Manage Customers</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-dark p-4">
+        <h4>All Products</h4>
+        <a href="#" class="btn btn-outline-light mt-2">View All</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

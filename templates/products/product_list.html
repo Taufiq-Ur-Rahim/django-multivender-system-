@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}My Products{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-white mb-4">My Products</h2>
+  <a href="{% url 'product_add' %}" class="btn btn-success mb-3">Add New Product</a>
+  <div class="table-responsive">
+    <table class="table table-dark table-hover table-bordered rounded">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.title }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>
+            <a href="{% url 'product_detail' product.pk %}" class="btn btn-info btn-sm">View</a>
+            <a href="{% url 'product_edit' product.pk %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center text-muted">No products found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
