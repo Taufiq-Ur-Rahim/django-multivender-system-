@@ -8,8 +8,12 @@
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy }}
+      <div class="mb-3">
+        <label for="id_images" class="form-label">Product Images</label>
+        <input type="file" name="images" id="id_images" class="form-control" multiple>
+      </div>
       <button type="submit" class="btn btn-primary mt-3">Save</button>
-      <a href="{% url 'product_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+      <a href="{% url 'products:product_list' %}" class="btn btn-secondary mt-3">Cancel</a>
     </form>
   </div>
 </div>

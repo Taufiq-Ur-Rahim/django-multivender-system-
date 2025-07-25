@@ -1,18 +1,48 @@
 {% extends 'base.html' %}
 {% block title %}My Orders{% endblock %}
 {% block content %}
-<h2 class="mb-4">Your Orders</h2>
-{% for order in orders %}
-<div class="card p-3 mb-3">
-    <h5>Order #{{ order.id }} — {{ order.created_at|date:"Y-m-d" }}</h5>
-    <p>Total: Rs {{ order.total_amount }} | Paid: {{ order.is_paid }}</p>
-    <ul>
-        {% for item in order.items.all %}
-        <li>{{ item.product.name }} — Qty: {{ item.quantity }} — Rs {{ item.price }}</li>
-        {% endfor %}
-    </ul>
+<div class="container mt-5">
+  <h2 class="text-white mb-4">Your Orders</h2>
+  {% for order in orders %}
+  <div class="card p-3 mb-4 shadow-lg">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5>Order #{{ order.id }} <span class="badge bg-info">{{ order.created_at|date:"Y-m-d" }}</span></h5>
+      <span class="badge bg-success">{{ order.status }}</span>
+    </div>
+    <p>Total: ₹{{ order.total_amount }} | Paid: <span class="badge bg-{{ order.is_paid|yesno:'success,danger' }}">{{ order.is_paid|yesno:'Yes,No' }}</span></p>
+    <div class="table-responsive">
+      <table class="table table-dark table-hover align-middle rounded">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order.items.all %}
+          <tr>
+            <td>
+              {% if item.product.images.first %}
+                <img src="{{ item.product.images.first.image.url }}" class="img-thumbnail" style="width:60px; height:40px; object-fit:cover;">
+              {% else %}
+                <img src="https://via.placeholder.com/60x40?text=No+Image" class="img-thumbnail">
+              {% endif %}
+            </td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>₹{{ item.price }}</td>
+            <td>₹{{ item.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% empty %}
+  <div class="text-center text-muted">No orders found.</div>
+  {% endfor %}
 </div>
-{% empty %}
-<p>No orders found.</p>
-{% endfor %}
 {% endblock %}

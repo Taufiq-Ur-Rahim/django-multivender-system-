@@ -16,13 +16,13 @@ def add_to_cart(request, product_id):
     if not created:
         cart_item.quantity += 1
     cart_item.save()
-    return redirect('cart_view')
+    return redirect('cart:view_cart')
 
 @login_required
 def remove_from_cart(request, item_id):
     item = get_object_or_404(CartItem, pk=item_id, user=request.user)
     item.delete()
-    return redirect('cart_view')
+    return redirect('cart:view_cart')
 
 @login_required
 def update_cart_quantity(request, item_id):
@@ -30,4 +30,4 @@ def update_cart_quantity(request, item_id):
         item = get_object_or_404(CartItem, pk=item_id, user=request.user)
         item.quantity = int(request.POST.get('quantity', 1))
         item.save()
-    return redirect('cart_view')
+    return redirect('cart:view_cart')

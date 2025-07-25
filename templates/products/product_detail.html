@@ -3,16 +3,22 @@
 {% block content %}
 <div class="container mt-5">
   <div class="card bg-dark text-light p-4 rounded shadow-lg">
-    <h3>{{ product.title }}</h3>
+    <h3>{{ product.name }}</h3>
     <p><strong>Description:</strong> {{ product.description }}</p>
-    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <p><strong>Price:</strong> ₹{{ product.price }}</p>
     <p><strong>Stock:</strong> {{ product.stock }}</p>
-    <p><strong>Category:</strong> {{ product.category }}</p>
-    {% if product.image %}
-      <img src="{{ product.image.url }}" class="img-fluid rounded mt-3" alt="Product Image">
-    {% endif %}
+    <p><strong>Category:</strong> {{ product.category.name }}</p>
+    <div class="row mt-3">
+      {% for image in images %}
+        <div class="col-md-4 mb-2">
+          <img src="{{ image.image.url }}" class="img-fluid rounded shadow" alt="Product Image">
+        </div>
+      {% empty %}
+        <div class="col-12"><span class="text-muted">No images available.</span></div>
+      {% endfor %}
+    </div>
     <a href="{% url 'reviews:add_review' product.id %}" class="btn btn-outline-success mt-3">Leave a Review</a>
-    <a href="{% url 'product_list' %}" class="btn btn-light mt-4">Back to List</a>
+    <a href="{% url 'products:product_list' %}" class="btn btn-light mt-4">Back to List</a>
   </div>
 </div>
 {% endblock %}

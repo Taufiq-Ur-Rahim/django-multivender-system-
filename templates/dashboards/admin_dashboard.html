@@ -1,25 +1,92 @@
 {% extends 'base.html' %}
 {% block title %}Admin Panel{% endblock %}
 {% block content %}
-<div class="container mt-5 text-white">
-  <h1 class="text-center mb-4">Welcome, Super Admin</h1>
-  <div class="row text-center">
-    <div class="col-md-4">
-      <div class="card bg-dark p-4">
-        <h4>Vendors</h4>
-        <a href="#" class="btn btn-outline-light mt-2">Manage Vendors</a>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Admin Dashboard</h1>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-center p-3">
+        <h5>Total Vendors</h5>
+        <h2>{{ vendors|length }}</h2>
+        <a href="{% url 'dashboard:admin_vendors' %}" class="btn btn-outline-primary btn-sm mt-2">Manage Vendors</a>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card bg-dark p-4">
-        <h4>Customers</h4>
-        <a href="#" class="btn btn-outline-light mt-2">Manage Customers</a>
+    <div class="col-md-3">
+      <div class="card text-center p-3">
+        <h5>Total Customers</h5>
+        <h2>{{ customers|length }}</h2>
+        <a href="{% url 'dashboard:admin_customers' %}" class="btn btn-outline-primary btn-sm mt-2">Manage Customers</a>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card bg-dark p-4">
-        <h4>All Products</h4>
-        <a href="#" class="btn btn-outline-light mt-2">View All</a>
+    <div class="col-md-3">
+      <div class="card text-center p-3">
+        <h5>Total Products</h5>
+        <h2>{{ products|length }}</h2>
+        <a href="{% url 'dashboard:admin_products' %}" class="btn btn-outline-primary btn-sm mt-2">View Products</a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center p-3">
+        <h5>Total Orders</h5>
+        <h2>{{ orders|length }}</h2>
+        <a href="{% url 'dashboard:admin_orders' %}" class="btn btn-outline-primary btn-sm mt-2">View Orders</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card p-4">
+        <h4>Recent Orders</h4>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders|slice:":5" %}
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.customer.username }}</td>
+              <td>{{ order.created_at|date:"M d, Y" }}</td>
+              <td>{{ order.status }}</td>
+              <td>₹{{ order.total_amount }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No orders found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card p-4">
+        <h4>Recent Vendors</h4>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>Vendor</th>
+              <th>Email</th>
+              <th>Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vendor in vendors|slice:":5" %}
+            <tr>
+              <td>{{ vendor.user.username }}</td>
+              <td>{{ vendor.user.email }}</td>
+              <td>{{ vendor.user.date_joined|date:"M d, Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">No vendors found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

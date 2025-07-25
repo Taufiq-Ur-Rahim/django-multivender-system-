@@ -1,0 +1,94 @@
+/* MegaMart Custom Theme - Modern, Clean, Amazon-like UI */
+body {
+    background: #f5f6fa;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+}
+
+.navbar, .card-header {
+    background: linear-gradient(90deg, #232f3e 60%, #37475a 100%);
+    color: #fff;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: none;
+}
+
+.btn-primary, .btn-success, .btn-warning, .btn-info {
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(50,50,93,0.08);
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background: #ff9900;
+    border: none;
+    color: #232f3e;
+}
+.btn-primary:hover {
+    background: #e68a00;
+    color: #fff;
+}
+
+.btn-success {
+    background: #00a859;
+    border: none;
+}
+.btn-success:hover {
+    background: #007a3d;
+}
+
+.btn-outline-primary {
+    border-color: #ff9900;
+    color: #ff9900;
+}
+.btn-outline-primary:hover {
+    background: #ff9900;
+    color: #fff;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #d5d9e2;
+    box-shadow: none;
+    font-size: 1rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #ff9900;
+    box-shadow: 0 0 0 2px rgba(255,153,0,0.15);
+}
+
+.card-title, h1, h2, h3, h4, h5 {
+    font-weight: 600;
+    color: #232f3e;
+}
+
+.table-dark {
+    background: #232f3e;
+    color: #fff;
+}
+.table-dark th, .table-dark td {
+    border-color: #37475a;
+}
+
+.badge {
+    border-radius: 6px;
+    font-size: 0.95em;
+    padding: 0.4em 0.7em;
+}
+
+.img-thumbnail, .card-img-top {
+    border-radius: 10px;
+    border: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .container, .card, .navbar {
+        border-radius: 0;
+        box-shadow: none;
+    }
+}

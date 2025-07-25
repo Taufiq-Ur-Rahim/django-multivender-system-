@@ -12,10 +12,19 @@ class RoleRequiredMixin(UserPassesTestMixin):
     role_required = None
 
     def test_func(self):
-        return self.request.user.is_authenticated and self.request.user.role == self.role_required
+        user = self.request.user
+        if not user.is_authenticated:
+            return False
+        if self.role_required == 'Vendor':
+            return getattr(user, 'is_vendor', False)
+        if self.role_required == 'Customer':
+            return getattr(user, 'is_customer', False)
+        return False
     
 class ObjectOwnerMixin:
+    owner_field = 'user'  # default, can be overridden in views
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(user=self.request.user)
+        owner_value = getattr(self.request.user, 'vendorprofile', self.request.user)
+        return qs.filter(**{self.owner_field: owner_value})
 

@@ -16,37 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    # Account Urls
-    path('accounts/', include('accounts.urls')),
-    
-    # Dashboard Urls
-    path('dashboard/', include('dashboard.urls')),
-
-    # Product Urls
-    path('products/', include('products.urls')),
-
-    # Order Urls
-    path('orders/', include('orders.urls')),
-
-    # Cart Urls
-    path('cart/',include('cart.urls')),
-
-    # Review Urls
-    path('reviews/', include('reviews.urls', namespace='reviews')),
-
-    # Payment Urls
-    path('payments/', include('payment.urls', namespace='payment')),
-
-    # Norifications Urls
-    path('notifications/', include('notifications.urls', namespace='notifications')),
-
-]
-
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from root import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('products/', include('products.urls', namespace='products')),
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('reviews/', include('reviews.urls', namespace='reviews')),
+    path('payments/', include('payment.urls', namespace='payment')),
+    path('notifications/', include('notifications.urls', namespace='notifications')),
+]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

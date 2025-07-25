@@ -1,6 +1,6 @@
 from django.views.generic import ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Order
 from .forms import OrderStatusForm
 from products.models import Product
@@ -20,12 +20,14 @@ class AdminOrderListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.is_superuser
 
-class OrderStatusUpdateView(LoginRequiredMixin, UpdateView):
-    model = Order
-    form_class = OrderStatusForm
-    template_name = 'orders/update_status.html'
-    success_url = '/orders/vendor/'  # or redirect back to previous
+
+class CustomerOrderListView(LoginRequiredMixin, ListView):
+    template_name = 'orders/my_orders.html'
+    context_object_name = 'orders'
 
     def get_queryset(self):
-        # Vendors can only update their own product orders
-        return Order.objects.filter(items__product__vendor=self.request.user).distinct()
+        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+
+def checkout(request):
+    # Dummy checkout view for now
+    return render(request, 'orders/checkout.html')

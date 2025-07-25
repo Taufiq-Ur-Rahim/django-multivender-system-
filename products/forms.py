@@ -1,10 +1,12 @@
 from django import forms
-from .models import Product
+
+from .models import Product, ProductImage
 
 class ProductForm(forms.ModelForm):
+    # To support multiple images, handle request.FILES.getlist('images') in your view
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'stock', 'category', 'image']
+        fields = ['name', 'description', 'price', 'stock', 'category']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'placeholder': 'Enter product name'
@@ -20,8 +22,5 @@ class ProductForm(forms.ModelForm):
             }),
             'category': forms.Select(attrs={
                 'class': 'form-select'
-            }),
-            'image': forms.FileInput(attrs={
-                'class': 'form-control'
             }),
         }
